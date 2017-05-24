@@ -216,6 +216,14 @@ int Boggle::getScoreComputer() {
 
 ostream& operator<<(ostream& out, Boggle& boggle) {
 
+    for (int row = 0; row < boggle.b.numRows(); row++){
 
+        for (int col = 0; col < boggle.b.numCols(); col++){
+
+            out << boggle.b[row][col];
+
+        }
+        out << endl;
+    }
     return out;
 }
