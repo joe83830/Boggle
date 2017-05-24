@@ -76,17 +76,28 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
 
-    //    if (word.length() >= 4 && dic.contains(toLowerCase(word)) && !alreadyFound.contains(word)){
+    if (word.length() >= 4 && dic.contains(toLowerCase(word)) && !alreadyFoundSet.contains(word)){
 
-    //        return true;
-    //    } else {
+        return true;
+    } else {
 
-    //        return false;
-    //    }
+        return false;
+    }
     return false;
 }
 
 bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
+
+
+    //    for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+    //        for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+    //            cout << isOccupiedHuman.get(row, col);
+    //        }
+    //        cout << endl;
+    //    }
+    //    cout << "-------top--------" << endl;
 
     if (b.inBounds(x2, y2) && isOccupiedHuman.get(x2, y2) == false){
 
@@ -96,11 +107,29 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
         if (currentWord2 == word){
 
+            for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+                for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+                    isOccupiedHuman.set(row, col, false);
+                }
+
+            }
             return true;
 
         } else if (currentWord2.substr(indexOfWord, 1) == word.substr(indexOfWord, 1)) {
 
             isOccupiedHuman.set(x2, y2, true);
+
+            //            for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+            //                for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+            //                    cout << isOccupiedHuman.get(row, col);
+            //                }
+            //                cout << endl;
+            //            }
+            //            cout << "-------middle--------" << endl;
 
             return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
                     searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
@@ -108,6 +137,16 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
                     searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
 
             isOccupiedHuman.set(x2, y2, false);
+
+            //                        for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+            //                            for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+            //                                cout << isOccupiedHuman.get(row, col);
+            //                            }
+            //                            cout << endl;
+            //                        }
+            //                        cout << "-------down--------" << endl;
         }
 
         return false;
@@ -124,12 +163,12 @@ bool Boggle::humanWordSearch(string word) {
 
             if (searchHumanWord(row, col, word, currentWord2) == true){
 
-                alreadyFound.add(word);
+                alreadyFound.add(word);             //Vector for setting score
+                alreadyFoundSet.add(word);          //Set for checking contain
                 return true;
             }
         }
     }
-
 
     return false;
 }
@@ -156,16 +195,6 @@ Set<string> Boggle::computerWordSearch() {
         }
     }
 
-    // alreadyFound was a Vector containing what the human found
-    // need to turn it into a set to compare with result (what the computer found)
-
-    //    for (int j = 0; j < alreadyFound.size(); j ++){
-
-    //        alreadyFoundSet.add(alreadyFound.get(j));
-    //    }
-
-    //    result -= alreadyFoundSet;
-
     return result;
 }
 
@@ -176,7 +205,7 @@ Set<string> Boggle::searchWords(int x, int y, string currentWord){
     if (b.inBounds(x, y) && isOccupied.get(x, y) == false){
 
         currentWord += b.get(x, y);
-        cout << currentWord << endl;
+        //cout << currentWord << endl;
 
         if (dic.contains(currentWord) && currentWord.length() >= 4){
 

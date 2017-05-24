@@ -29,6 +29,8 @@ public:
     Set<string> searchWords(int x, int y, string currentWord);
     bool searchHumanWord(int x2, int y2, string word, string currntWord2);
     Grid<char> b;
+    Vector<string> alreadyFound;
+    Set<string> alreadyFoundSet;
 
 private:
     Lexicon dic;
@@ -40,8 +42,7 @@ private:
     string currentWord2 = "";
     Grid<bool> isOccupied = Grid<bool>(4, 4, false);
     Grid<bool> isOccupiedHuman = Grid<bool>(4, 4, false);
-    Vector<string> alreadyFound;
-    Set<string> alreadyFoundSet;
+
     int humanCount = 0;
     Vector<string> computerWordSearchVec;
 
