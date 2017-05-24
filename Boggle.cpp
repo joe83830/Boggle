@@ -75,17 +75,35 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
 
-    if (word.length() > 3 && dic.contains(word)){
+    return false; //delete this line
+}
 
-        return true;
+bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
-    } else{
+    if (!b.inBounds(x2, y2)){
+
+        return false;
+    } else {
+
+        currentWord2 = currentWord2 + b.get(x2, y2);
+
+        if (dic.contains(currentWord2)){
+
+            return true;
+        } else if (dic.containsPrefix(currentWord2)) {
+
+            return (searchHumanWord(x + 1, y, word, currentWord2) || searchHumanWord(x - 1, y, word, currentWord2) ||
+                    searchHumanWord(x + 1, y + 1, word, currentWord2) || searchHumanWord(x + 1, y - 1, word, currentWord2) ||
+                    searchHumanWord(x - 1, y + 1, word, currentWord2) || searchHumanWord(x - 1, y - 1, word, currentWord2) ||
+                    searchHumanWord(x, y + 1, word, currentWord2) || searchHumanWord(x, y - 1, word, currentWord2));
+        }
 
         return false;
     }
 }
 
 bool Boggle::humanWordSearch(string word) {
+
 
 
 
@@ -140,6 +158,8 @@ Set<string> Boggle::searchWords(int x, int y, string currentWord){
             }
         }
     }
+
+    currentWord = "";
     return addedWords;
 
 }

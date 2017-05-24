@@ -27,13 +27,17 @@ public:
     // TODO: add any other member functions/variables necessary
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     Set<string> searchWords(int x, int y, string currentWord);
+    bool searchHumanWord(int x2, int y2, string word, string currntWord2);
 
 private:
     Grid<char> b;
     Lexicon dic;
     int x = 0;
     int y = 0;
+    int x2 = 0;
+    int y2 = 0;
     string currentWord = "";
+    string currentWord2 = "";
     Grid<bool> isOccupied = Grid<bool>(4, 4, true);
 
 };
