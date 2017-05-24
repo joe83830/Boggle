@@ -39,6 +39,7 @@ private:
     string currentWord = "";
     string currentWord2 = "";
     Grid<bool> isOccupied = Grid<bool>(4, 4, false);
+    Grid<bool> isOccupiedHuman = Grid<bool>(4, 4, false);
     Vector<string> alreadyFound;
     Set<string> alreadyFoundSet;
     int humanCount = 0;

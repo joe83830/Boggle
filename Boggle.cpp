@@ -88,26 +88,32 @@ bool Boggle::checkWord(string word) {
 
 bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
-    if (!b.inBounds(x2, y2)){
-
-        return false;
-    } else {
+    if (b.inBounds(x2, y2) && isOccupiedHuman.get(x2, y2) == false){
 
         currentWord2 = currentWord2 + b.get(x2, y2);
 
-        if (dic.contains(currentWord2)){
+        int indexOfWord = currentWord2.length() - 1;
+
+        if (currentWord2 == word){
 
             return true;
-        } else if (dic.containsPrefix(currentWord2)) {
+
+        } else if (currentWord2.substr(indexOfWord, 1) == word.substr(indexOfWord, 1)) {
+
+            isOccupiedHuman.set(x2, y2, true);
 
             return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
                     searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
                     searchHumanWord(x2 - 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 - 1, y2 - 1, word, currentWord2) ||
                     searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
+
+            isOccupiedHuman.set(x2, y2, false);
         }
 
         return false;
     }
+
+    return false;
 }
 
 bool Boggle::humanWordSearch(string word) {
