@@ -76,13 +76,14 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
 
-    if (word.length() >= 4 && dic.contains(toLowerCase(word)) && !alreadyFound.contains(word)){
+    //    if (word.length() >= 4 && dic.contains(toLowerCase(word)) && !alreadyFound.contains(word)){
 
-        return true;
-    } else {
+    //        return true;
+    //    } else {
 
-        return false;
-    }
+    //        return false;
+    //    }
+    return false;
 }
 
 bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
@@ -149,6 +150,16 @@ Set<string> Boggle::computerWordSearch() {
         }
     }
 
+    // alreadyFound was a Vector containing what the human found
+    // need to turn it into a set to compare with result (what the computer found)
+
+    //    for (int j = 0; j < alreadyFound.size(); j ++){
+
+    //        alreadyFoundSet.add(alreadyFound.get(j));
+    //    }
+
+    //    result -= alreadyFoundSet;
+
     return result;
 }
 
@@ -156,43 +167,49 @@ Set<string> Boggle::searchWords(int x, int y, string currentWord){
 
     Set<string> addedWords;
 
-    isOccupied.set(x, y, false);
+    if (b.inBounds(x, y) && isOccupied.get(x, y) == false){
 
-    if (isOccupied.get(x, y)){
-        if (!b.inBounds(x, y)){
+        currentWord += b.get(x, y);
+        cout << currentWord << endl;
 
-            return addedWords;
+        if (dic.contains(currentWord) && currentWord.length() >= 4){
 
-        } else {
+            addedWords.add(currentWord);
+        }
 
-            currentWord + b.get(x, y);
-            if (dic.contains(currentWord)){
+        if (dic.containsPrefix(currentWord)){
 
-                addedWords.add(currentWord);
-            }
+            isOccupied.set(x, y, true);
 
-            if (dic.containsPrefix(currentWord)){
 
-                searchWords(x, y, currentWord) = addedWords + searchWords(x + 1, y, currentWord) +
-                        searchWords(x - 1, y, currentWord) + searchWords(x, y + 1, currentWord) + searchWords(x, y - 1, currentWord) +
-                        searchWords(x + 1, y + 1, currentWord) + searchWords(x + 1, y - 1, currentWord) +
-                        searchWords(x - 1, y + 1, currentWord) + searchWords(x - 1, y - 1, currentWord);
-            }
+            addedWords = addedWords + searchWords(x + 1, y, currentWord) +
+                    searchWords(x - 1, y, currentWord) + searchWords(x, y + 1, currentWord) + searchWords(x, y - 1, currentWord) +
+                    searchWords(x + 1, y + 1, currentWord) + searchWords(x + 1, y - 1, currentWord) +
+                    searchWords(x - 1, y + 1, currentWord) + searchWords(x - 1, y - 1, currentWord);
+
+            isOccupied.set(x, y, false);
         }
     }
 
-    currentWord = "";
+
     return addedWords;
 
 }
 
 
 int Boggle::getScoreComputer() {
-    // TODO: implement
-    return 0;   // remove this
+
+
+    for (int i = 0; i < computerWordSearch().size(); i ++){
+
+        //應該有比把Set轉成Vector更好的方法吧@@?
+
+    }
+    return 0;
 }
 
 ostream& operator<<(ostream& out, Boggle& boggle) {
-    // TODO: implement
+
+
     return out;
 }

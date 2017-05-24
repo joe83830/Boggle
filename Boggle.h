@@ -28,9 +28,9 @@ public:
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     Set<string> searchWords(int x, int y, string currentWord);
     bool searchHumanWord(int x2, int y2, string word, string currntWord2);
+    Grid<char> b;
 
 private:
-    Grid<char> b;
     Lexicon dic;
 //    int x = 0;
 //    int y = 0;
@@ -38,7 +38,11 @@ private:
 //    int y2 = 0;
     string currentWord = "";
     string currentWord2 = "";
-    Grid<bool> isOccupied = Grid<bool>(4, 4, true);
+    Grid<bool> isOccupied = Grid<bool>(4, 4, false);
+    Vector<string> alreadyFound;
+    Set<string> alreadyFoundSet;
+    int humanCount = 0;
+    Vector<string> computerWordSearchVec;
 
 };
 
