@@ -30,4 +30,7 @@ void playOneGame(Lexicon& dictionary) {
     }
     Boggle b1 = Boggle(dictionary, boardText);
 
+    string word = getLine("Enter the words you found ");
+    b1.humanWordSearch(word);
+
 }

@@ -5,6 +5,7 @@
 // TODO: remove this comment header
 
 #include "Boggle.h"
+#include "bogglegui.h"
 
 // letters on all 6 sides of every cube
 static string CUBES[16] = {
@@ -75,7 +76,13 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
 
-    return false; //delete this line
+    if (word.length() >= 4 && dic.contains(toLowerCase(word)) && !alreadyFound.contains(word)){
+
+        return true;
+    } else {
+
+        return false;
+    }
 }
 
 bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
@@ -92,10 +99,10 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
             return true;
         } else if (dic.containsPrefix(currentWord2)) {
 
-            return (searchHumanWord(x + 1, y, word, currentWord2) || searchHumanWord(x - 1, y, word, currentWord2) ||
-                    searchHumanWord(x + 1, y + 1, word, currentWord2) || searchHumanWord(x + 1, y - 1, word, currentWord2) ||
-                    searchHumanWord(x - 1, y + 1, word, currentWord2) || searchHumanWord(x - 1, y - 1, word, currentWord2) ||
-                    searchHumanWord(x, y + 1, word, currentWord2) || searchHumanWord(x, y - 1, word, currentWord2));
+            return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
+                    searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
+                    searchHumanWord(x2 - 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 - 1, y2 - 1, word, currentWord2) ||
+                    searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
         }
 
         return false;
@@ -104,15 +111,30 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
 bool Boggle::humanWordSearch(string word) {
 
+    for (int row = 0; row < b.numRows(); row ++){
 
+        for (int col = 0; col < b.numCols(); col ++){
+
+            if (searchHumanWord(row, col, word, currentWord2) == true){
+
+                alreadyFound.add(word);
+                return true;
+            }
+        }
+    }
 
 
     return false;
 }
 
 int Boggle::getScoreHuman() {
-    // TODO: implement
-    return 0;   // remove this
+
+    for (int i = 0; i < alreadyFound.size(); i ++){
+
+        string tempWords = alreadyFound.get(i);
+        humanCount += (tempWords.size() - 3);
+    }
+    return humanCount;
 }
 
 Set<string> Boggle::computerWordSearch() {
