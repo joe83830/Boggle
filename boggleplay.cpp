@@ -1,8 +1,3 @@
-// This is a .cpp file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
 
 #include "Boggle.h"
 #include "lexicon.h"
@@ -11,8 +6,11 @@
 #include "random.h"
 #include "simpio.h"
 #include "strlib.h"
+#include "bogglegui.h"
 
 void playOneGame(Lexicon& dictionary) {
+
+    BoggleGUI::initialize(4, 4);
 
     string boardText = "";
 
@@ -36,6 +34,17 @@ void playOneGame(Lexicon& dictionary) {
 
     cout << b1 << endl;
 
+    for (int row = 0; row < 4; row++){
+
+        for (int col = 0; col < 4; col++){
+
+            BoggleGUI::labelCube(row, col, b1.getLetter(row,col));
+        }
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl; //Cheat Code
+
     int count = 0;
 
 
@@ -56,6 +65,8 @@ void playOneGame(Lexicon& dictionary) {
             count += 1;
             cout << "Your words (" << count << "):" << b1.alreadyFound << endl;
             cout << "Your Score: " << b1.getScoreHuman() << endl;
+
+//            BoggleGUI::setScore(b1.getScoreHuman(), BoggleGUI::HUMAN);
         }
     }
 

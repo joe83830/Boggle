@@ -116,9 +116,14 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
                 }
 
             }
+
+            BoggleGUI::setHighlighted(x2, y2, true);
             return true;
 
         } else if (currentWord2.substr(indexOfWord, 1) == word.substr(indexOfWord, 1)) {
+
+            BoggleGUI::setHighlighted(x2, y2, true);
+            BoggleGUI::setAnimationDelay(100);
 
             isOccupiedHuman.set(x2, y2, true);
 
@@ -158,6 +163,8 @@ bool Boggle::humanWordSearch(string word) {
                     }
 
                 }
+
+                BoggleGUI::clearHighlighting();   //Is this right?
             }
         }
     }
@@ -244,11 +251,7 @@ int Boggle::getScoreComputer() {
             tempNum = (vectorComputerWordSearchResult[i].length() - 5);
         }
 
-        cout << "TempNum = " << tempNum << endl;
-
         computerScore += tempNum;
-
-        cout << "ComputerScore after addition" << computerScore << endl;
 
     }
     return computerScore;
