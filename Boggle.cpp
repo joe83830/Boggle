@@ -102,17 +102,11 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
     if (b.inBounds(x2, y2) && isOccupiedHuman.get(x2, y2) == false){
 
-        //        cout << "Came into the first if" << endl;
-
         currentWord2 = currentWord2 + b.get(x2, y2);
-
-        //        cout << "CurrentWord2 = " << currentWord2 << endl;
 
         int indexOfWord = currentWord2.length() - 1;
 
         if (currentWord2 == word){
-
-            //            cout << "I think the word is correct" << endl;
 
             for (int row = 0; row < isOccupiedHuman.numRows(); row++){                //If Found word, reset the bool grid
 
@@ -126,20 +120,7 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
         } else if (currentWord2.substr(indexOfWord, 1) == word.substr(indexOfWord, 1)) {
 
-            //            cout << "Its not correct yet, still trying" << endl;
-
             isOccupiedHuman.set(x2, y2, true);
-
-
-            //                        for (int row = 0; row < isOccupiedHuman.numRows(); row++){
-
-            //                            for (int col = 0; col < isOccupiedHuman.numCols(); col++){
-
-            //                                cout << isOccupiedHuman.get(row, col);
-            //                            }
-            //                            cout << endl;
-            //                        }
-            //                        cout << "-------middle--------" << endl;
 
             return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
                     searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
@@ -147,16 +128,6 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
                     searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
 
             isOccupiedHuman.set(x2, y2, false);
-
-            //                                    for (int row = 0; row < isOccupiedHuman.numRows(); row++){
-
-            //                                        for (int col = 0; col < isOccupiedHuman.numCols(); col++){
-
-            //                                            cout << isOccupiedHuman.get(row, col);
-            //                                        }
-            //                                        cout << endl;
-            //                                    }
-            //                                    cout << "-------down--------" << endl;
 
         }
 
@@ -229,7 +200,6 @@ Set<string> Boggle::searchWords(int x, int y, string currentWord){
     if (b.inBounds(x, y) && isOccupied.get(x, y) == false){
 
         currentWord += b.get(x, y);
-        //cout << currentWord << endl;
 
         if (dic.contains(currentWord) && currentWord.length() >= 4){
 
@@ -258,13 +228,30 @@ Set<string> Boggle::searchWords(int x, int y, string currentWord){
 
 int Boggle::getScoreComputer() {
 
+    string temporaryComputerWordSearch = computerWordSearch().toString();
+    Vector<string> vectorComputerWordSearchResult = stringSplit(temporaryComputerWordSearch, ", ");
 
-    for (int i = 0; i < computerWordSearch().size(); i ++){
+    int computerScore = 0;
 
-        //應該有比把Set轉成Vector更好的方法吧@@?
+    int tempNum = 0;
+
+    for (int i = 0; i < vectorComputerWordSearchResult.size(); i++){
+
+        if (i == 0 || i == (vectorComputerWordSearchResult.size() - 1)){
+            tempNum = (vectorComputerWordSearchResult[i].length() - 6);
+        } else {
+
+            tempNum = (vectorComputerWordSearchResult[i].length() - 5);
+        }
+
+        cout << "TempNum = " << tempNum << endl;
+
+        computerScore += tempNum;
+
+        cout << "ComputerScore after addition" << computerScore << endl;
 
     }
-    return 0;
+    return computerScore;
 }
 
 ostream& operator<<(ostream& out, Boggle& boggle) {

@@ -12,11 +12,6 @@
 #include "simpio.h"
 #include "strlib.h"
 
-//int a = 0;
-//Vector<char> assist;
-//bool checkBoardText(int a, Vector<char> assist);
-//void checkBoardTextAssist(string boardText);
-
 void playOneGame(Lexicon& dictionary) {
 
     string boardText = "";
@@ -45,7 +40,7 @@ void playOneGame(Lexicon& dictionary) {
 
 
     //For testing purposes
-    cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;
+    //cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;
 
     while (true){
 
@@ -68,23 +63,5 @@ void playOneGame(Lexicon& dictionary) {
 
     cout << "It's my turn!" << endl;
     cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;
+    cout << "My score: " << b1.getScoreComputer() << endl;
 }
-
-//void checkBoardTextAssist(string boardText, Vector<char> assist){
-
-//    for (int i = 0; i < boardText.length(); i++){
-
-//        assist.add(boardText[i]);
-//    }
-//}
-
-//bool checkBoardText(int a, Vector<char> assist){
-
-//    if ((a < assist.size()) && (isdigit(assist.get(a)) == false)){
-
-//        return (true && checkBoardText(a + 1, assist));
-//    } else {
-
-//        return false;
-//    }
-//}
