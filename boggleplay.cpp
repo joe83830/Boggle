@@ -64,9 +64,10 @@ void playOneGame(Lexicon& dictionary) {
 
             count += 1;
             cout << "Your words (" << count << "):" << b1.alreadyFound << endl;
-            cout << "Your Score: " << b1.getScoreHuman() << endl;
+            int getScoreHumanNum = b1.getScoreHuman();
+            cout << "Your Score: " << getScoreHumanNum << endl;
 
-//            BoggleGUI::setScore(b1.getScoreHuman(), BoggleGUI::HUMAN);
+            BoggleGUI::setScore(getScoreHumanNum, BoggleGUI::HUMAN);
         }
     }
 
