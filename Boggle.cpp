@@ -1,8 +1,3 @@
-// This is a .cpp file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
 
 #include "Boggle.h"
 #include "bogglegui.h"
@@ -66,7 +61,7 @@ char Boggle::getLetter(int row, int col) {
 
     if(!b.inBounds(row, col)){
 
-        throw 0;  //丟到外面再一口氣抓
+        throw 0;
 
     } else{
 
@@ -164,7 +159,7 @@ bool Boggle::humanWordSearch(string word) {
 
                 }
 
-                BoggleGUI::clearHighlighting();   //Is this right?
+                BoggleGUI::clearHighlighting();
             }
         }
     }

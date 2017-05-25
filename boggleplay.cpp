@@ -20,7 +20,7 @@ void playOneGame(Lexicon& dictionary) {
 
             boardText = toUpperCase(trim(getLine("Type the 16 letters to appear on the board: ")));
 
-            if ((boardText.length() == 16)){  //Add one more filter
+            if ((boardText.length() == 16)){
 
                 break;
 
@@ -42,14 +42,7 @@ void playOneGame(Lexicon& dictionary) {
         }
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl; //Cheat Code
-
     int count = 0;
-
-
-    //For testing purposes
-    //cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;
 
     while (true){
 
