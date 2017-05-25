@@ -75,5 +75,9 @@ void playOneGame(Lexicon& dictionary) {
 
     cout << "It's my turn!" << endl;
     cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;
-    cout << "My score: " << b1.getScoreComputer() << endl;
+
+    int getScoreComputerNum = b1.getScoreComputer();
+    cout << "My score: " << getScoreComputerNum << endl;
+    BoggleGUI::setScore(getScoreComputerNum, BoggleGUI::COMPUTER);
+
 }
