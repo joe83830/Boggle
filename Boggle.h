@@ -24,7 +24,6 @@ public:
     int getScoreHuman();
     int getScoreComputer();
 
-    // TODO: add any other member functions/variables necessary
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     Set<string> searchWords(int x, int y, string currentWord);
     bool searchHumanWord(int x2, int y2, string word, string currntWord2);

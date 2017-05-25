@@ -89,25 +89,31 @@ bool Boggle::checkWord(string word) {
 bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
 
-    //    for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+    //        for (int row = 0; row < isOccupiedHuman.numRows(); row++){
 
-    //        for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+    //            for (int col = 0; col < isOccupiedHuman.numCols(); col++){
 
-    //            cout << isOccupiedHuman.get(row, col);
+    //                cout << isOccupiedHuman.get(row, col);
+    //            }
+    //            cout << endl;
     //        }
-    //        cout << endl;
-    //    }
-    //    cout << "-------top--------" << endl;
+    //        cout << "-------top--------" << endl;
 
     if (b.inBounds(x2, y2) && isOccupiedHuman.get(x2, y2) == false){
 
+        //        cout << "Came into the first if" << endl;
+
         currentWord2 = currentWord2 + b.get(x2, y2);
+
+        //        cout << "CurrentWord2 = " << currentWord2 << endl;
 
         int indexOfWord = currentWord2.length() - 1;
 
         if (currentWord2 == word){
 
-            for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+            //            cout << "I think the word is correct" << endl;
+
+            for (int row = 0; row < isOccupiedHuman.numRows(); row++){                //If Found word, reset the bool grid
 
                 for (int col = 0; col < isOccupiedHuman.numCols(); col++){
 
@@ -119,24 +125,10 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
 
         } else if (currentWord2.substr(indexOfWord, 1) == word.substr(indexOfWord, 1)) {
 
+            //            cout << "Its not correct yet, still trying" << endl;
+
             isOccupiedHuman.set(x2, y2, true);
 
-            //            for (int row = 0; row < isOccupiedHuman.numRows(); row++){
-
-            //                for (int col = 0; col < isOccupiedHuman.numCols(); col++){
-
-            //                    cout << isOccupiedHuman.get(row, col);
-            //                }
-            //                cout << endl;
-            //            }
-            //            cout << "-------middle--------" << endl;
-
-            return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
-                    searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
-                    searchHumanWord(x2 - 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 - 1, y2 - 1, word, currentWord2) ||
-                    searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
-
-            isOccupiedHuman.set(x2, y2, false);
 
             //                        for (int row = 0; row < isOccupiedHuman.numRows(); row++){
 
@@ -146,7 +138,25 @@ bool Boggle::searchHumanWord(int x2, int y2, string word, string currentWord2){
             //                            }
             //                            cout << endl;
             //                        }
-            //                        cout << "-------down--------" << endl;
+            //                        cout << "-------middle--------" << endl;
+
+            return (searchHumanWord(x2 + 1, y2, word, currentWord2) || searchHumanWord(x2 - 1, y2, word, currentWord2) ||
+                    searchHumanWord(x2 + 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 + 1, y2 - 1, word, currentWord2) ||
+                    searchHumanWord(x2 - 1, y2 + 1, word, currentWord2) || searchHumanWord(x2 - 1, y2 - 1, word, currentWord2) ||
+                    searchHumanWord(x2, y2 + 1, word, currentWord2) || searchHumanWord(x2, y2 - 1, word, currentWord2));
+
+            isOccupiedHuman.set(x2, y2, false);
+
+            //                                    for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+            //                                        for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+            //                                            cout << isOccupiedHuman.get(row, col);
+            //                                        }
+            //                                        cout << endl;
+            //                                    }
+            //                                    cout << "-------down--------" << endl;
+
         }
 
         return false;
@@ -166,6 +176,16 @@ bool Boggle::humanWordSearch(string word) {
                 alreadyFound.add(word);             //Vector for setting score
                 alreadyFoundSet.add(word);          //Set for checking contain
                 return true;
+            } else {
+
+                for (int row = 0; row < isOccupiedHuman.numRows(); row++){
+
+                    for (int col = 0; col < isOccupiedHuman.numCols(); col++){
+
+                        isOccupiedHuman.set(row, col, false);
+                    }
+
+                }
             }
         }
     }
@@ -179,6 +199,7 @@ int Boggle::getScoreHuman() {
 
         string tempWords = alreadyFound.get(i);
         humanCount += (tempWords.size() - 3);
+
     }
     return humanCount;
 }
