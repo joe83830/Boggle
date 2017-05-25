@@ -49,7 +49,6 @@ void playOneGame(Lexicon& dictionary) {
 
     while (true){
 
-        cout << "Your words (" << count << "):" << b1.alreadyFound << endl;
         string word = toUpperCase(getLine("Type a word (or Enter to stop)"));
 
         if (word == ""){
@@ -57,20 +56,15 @@ void playOneGame(Lexicon& dictionary) {
             break;
         }
 
-        //Testing purposes
-//        cout << "checkword" << b1.checkWord(word) << endl;
-//        cout << "humanwordsearch" << b1.humanWordSearch(word) << endl;
         if (((b1.checkWord(word) == true) && (b1.humanWordSearch(word) == true))){
 
             count += 1;
-
+            cout << "Your words (" << count << "):" << b1.alreadyFound << endl;
             cout << "Your Score: " << b1.getScoreHuman() << endl;
-        } else {
-
-            cout << "Invalid input, try again " << endl;
         }
-
     }
+
+    b1.countAssist = 0;
 
     cout << "It's my turn!" << endl;
     cout << "My words (" << b1.computerWordSearch().size() << "): " << b1.computerWordSearch().toString() << endl;

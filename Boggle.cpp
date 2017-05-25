@@ -81,6 +81,7 @@ bool Boggle::checkWord(string word) {
         return true;
     } else {
 
+        cout << "You must enter an unfound 4+ letter word from the dictionary." << endl;
         return false;
     }
     return false;
@@ -195,12 +196,14 @@ bool Boggle::humanWordSearch(string word) {
 
 int Boggle::getScoreHuman() {
 
-    for (int i = 0; i < alreadyFound.size(); i ++){
+    for (int i = countAssist; i < alreadyFound.size(); i ++){
 
         string tempWords = alreadyFound.get(i);
-        humanCount += (tempWords.size() - 3);
 
+        humanCount += (tempWords.size() - 3);
     }
+
+    countAssist += 1;
     return humanCount;
 }
 

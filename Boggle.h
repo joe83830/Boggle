@@ -30,6 +30,7 @@ public:
     Grid<char> b;
     Vector<string> alreadyFound;
     Set<string> alreadyFoundSet;
+    int countAssist = 0;
 
 private:
     Lexicon dic;
